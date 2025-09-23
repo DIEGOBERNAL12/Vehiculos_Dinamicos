@@ -1,119 +1,196 @@
-// Constantes globales
-const form = document.getElementById('vehiculo-form');
-const contCars = document.querySelector('#cont-cards .row.g-3');
-const inputFoto = document.getElementById('FotoCar');
-const inputNombre = document.getElementById('nombreCar');
-const inputMarca = document.getElementById('marcaCar');
-const inputModelo = document.getElementById('modeloCar');
-const inputKilometraje = document.getElementById('kilometrajeCar');
-const inputPrecio = document.getElementById('precioCar');
+// === Selección de elementos ===
+const form = document.getElementById("vehiculo-form");
 
-// Imagen por defecto
-const defaultImg = 'img/imagenPor Defecto.jpg';
+const inputFoto = document.getElementById("FotoCar");
+const inputNombre = document.getElementById("nombreCar");
+const inputMarca = document.getElementById("marcaCar");
+const inputModelo = document.getElementById("modeloCar");
+const inputKilometraje = document.getElementById("kilometrajeCar");
+const inputPrecio = document.getElementById("precioCar");
 
-// Función para crear tarjeta
-function crearCard(vehiculo) {
-    // Creamos el contenedor padre
-    const col = document.createElement('div');
-    col.classList.add('col-md-6', 'item-vehiculo');
+const contCards = document.querySelector("#cont-cards .row.g-3");
+const contCarrito = document.querySelector(".cont-carrito");
 
-    // Tarjeta
-    const card = document.createElement('div');
-    card.classList.add('card', 'h-100');
+// Botones del carrito
+const btnAbrirCarrito = document.getElementById("carrito");
+const btnCerrarCarrito = document.getElementById("carritos");
+const panelCarrito = document.querySelector(".panel");
 
-    // Imagen
-    const imagen = document.createElement('img');
-    imagen.classList.add('card-img-top', 'w-100');
-    imagen.src = vehiculo.foto;
-    imagen.alt = vehiculo.nombre;
 
-    // Cuerpo de la tarjeta
-    const cardBody = document.createElement('div');
-    cardBody.classList.add('card-body');
+// Array de imágenes predeterminadas
+const defaultImgs = 'img/imagenPor Defecto.jpg';
 
-    // Usamos innerHTML para los datos
-    cardBody.innerHTML = `
+// === Función para crear tarjeta en "Vehículos Registrados" ===
+function createCardVehiculo(vehiculo) {
+    const col = document.createElement("div");
+    col.classList.add("col-md-6", "item-vehiculo");
+
+    const card = document.createElement("div");
+    card.classList.add("card", "h-100");
+
+    const img = document.createElement("img");
+    img.classList.add("card-img-top", "w-100");
+    img.src = vehiculo.foto;
+    img.alt = vehiculo.nombre;
+
+    const body = document.createElement("div");
+    body.classList.add("card-body");
+
+    body.innerHTML = `
         <h3 class="card-title">${vehiculo.nombre}</h3>
         <h4 class="card-subtitle text-muted">${vehiculo.marca}</h4>
-        <p>Modelo: ${vehiculo.modelo}</p>
-        <p>Kilometraje: ${vehiculo.kilometraje} km</p>
+        <h4 class="card-text">Modelo: ${vehiculo.modelo}</h4>
+        <h4 class="card-text">Kilometraje: ${vehiculo.kilometraje} km</h4>
         <h2 class="text-success">$${vehiculo.precio}</h2>
     `;
 
-    // Contenedor de botones
-    const contBtns = document.createElement('div');
-    contBtns.classList.add('d-flex', 'justify-content-between', 'mt-3');
+    // Botones
+    const btns = document.createElement("div");
+    btns.classList.add("d-flex", "justify-content-between", "mt-3");
 
-    // Botón Comprar
-    const btnSuccess = document.createElement('button');
-    btnSuccess.classList.add('btn', 'btn-success');
-    btnSuccess.textContent = 'Comprar';
-    btnSuccess.setAttribute('id', 'btnCompra');
-    btnSuccess.addEventListener('click', () => {
-        alert('Ya nos comunicaremos con usted');
-    });
+    const btnComprar = document.createElement("button");
+    btnComprar.classList.add("btn", "btn-success");
+    btnComprar.textContent = "Añadir";
 
-    // Botón Eliminar
-    const btnDanger = document.createElement('button');
-    btnDanger.classList.add('btn', 'btn-danger');
-    btnDanger.textContent = 'Eliminar';
-    btnDanger.addEventListener('click', () => col.remove());
+    const btnEliminar = document.createElement("button");
+    btnEliminar.classList.add("btn", "btn-danger");
+    btnEliminar.textContent = "Eliminar";
 
-    // Ensamblamos
-    contBtns.appendChild(btnSuccess);
-    contBtns.appendChild(btnDanger);
-    cardBody.appendChild(contBtns);
+    // Eventos botones
+    btnEliminar.addEventListener("click", () => col.remove());
 
-    card.appendChild(imagen);
-    card.appendChild(cardBody);
+    btnComprar.addEventListener("click", () => {
+        const newCardCarrito = createCardCarrito(vehiculo);
+        contCarrito.appendChild(newCardCarrito);
+        sumaTotal()
+    }); //este es el active de la funcion
+
+    btns.appendChild(btnComprar);
+    btns.appendChild(btnEliminar);
+
+    body.appendChild(btns);
+    card.appendChild(img);
+    card.appendChild(body);
     col.appendChild(card);
 
     return col;
 }
 
-// Evento submit del formulario
-form.addEventListener('submit', (e) => {
+// === Evento del formulario ===
+form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    // Tomamos valores de los inputs
     const vehiculo = {
-        foto: inputFoto.value.trim(),
+        foto: inputFoto.value.trim() || defaultImgs,
         nombre: inputNombre.value.trim(),
         marca: inputMarca.value.trim(),
         modelo: inputModelo.value.trim(),
         kilometraje: inputKilometraje.value.trim(),
-        precio: inputPrecio.value.trim()
+        precio: inputPrecio.value.trim(),
     };
 
     // Validación: si falta algún campo obligatorio
-    if (!vehiculo.nombre || !vehiculo.marca || !vehiculo.modelo || 
-        !vehiculo.kilometraje || !vehiculo.precio) {
-        alert('Todos los campos son obligatorios');
+
+    if (!vehiculo.nombre || !vehiculo.marca || !vehiculo.modelo || !vehiculo.kilometraje || !vehiculo.precio) {
+        alert("No se puede hacer un registro si los campos no estan completos.");
         return;
     }
 
     // Si no hay foto, usar la predeterminada
+
     if (!vehiculo.foto) {
         vehiculo.foto = defaultImg;
     }
 
-    // Crear y agregar tarjeta
-    const newCard = crearCard(vehiculo);
-    contCars.appendChild(newCard);
+    // Crear tarjeta en "Vehículos Registrados"
+    const newCard = createCardVehiculo(vehiculo);
+    contCards.appendChild(newCard);
 
-    // Limpiar formulario
     form.reset();
 });
 
-const btnStyle = document.getElementById('Btn_Change');
-btnStyle.addEventListener('click', () => {
-    const linckCss = document.getElementById('link_style');
+// desde aca se empieza lo que es el panel para la tienda
+// const contCarrito = document.querySelector('.cont-carrito');
+const carritoBtn = document.getElementById("carrito");
+const remov = document.getElementById("carritos")
+const panel = document.querySelector(".panel");
 
-    if (linckCss.getAttribute('href') === 'css/style.css') {
-        linckCss.setAttribute('href', 'css/style_noche.css');
-        btnStyle.textContent = 'Modo Noche';
+// Abrir panel
+carritoBtn.addEventListener("click", () => {
+    panel.classList.add("active");
+});
+
+// Cerrar panel
+remov.addEventListener("click", () => {
+    panel.classList.remove("active");
+});
+
+// === Función para crear tarjeta en el carrito ===
+function createCardCarrito(vehiculo) {
+    const cont = document.createElement("div");
+    cont.classList.add("card-carrito", "mb-2", "p-2", "row", "align-items-center");
+
+    const colImg = document.createElement("div");
+    colImg.classList.add("col-md-4");
+
+    const img = document.createElement("img");
+    img.classList.add("carrito-img", "w-100");
+    img.src = vehiculo.foto;
+    img.alt = vehiculo.nombre;
+
+    const colInfo = document.createElement("div");
+    colInfo.classList.add("col-md-5");
+    colInfo.innerHTML = `
+        <h4 class="card-title">${vehiculo.nombre}</h4>
+        <h5 class="card-subtitle text-muted">${vehiculo.marca}</h5>
+        <h6 class="text-success">$${vehiculo.precio}</h6>
+    `;
+
+    const btnEliminar = document.createElement("button");
+    btnEliminar.classList.add("btn", "btn-danger", "col-md-2");
+    btnEliminar.textContent = "X";
+    btnEliminar.addEventListener("click", () => {
+        cont.remove();
+        sumaTotal();
+    });
+
+    colImg.appendChild(img);
+    cont.appendChild(colImg);
+    cont.appendChild(colInfo);
+    cont.appendChild(btnEliminar);
+
+    return cont;
+
+}
+
+// Botón de modo noche
+const changeStyleBtn = document.getElementById("Btn_Change");
+
+changeStyleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    // Cambiar el texto del botón según el modo
+    if (document.body.classList.contains("dark-mode")) {
+        changeStyleBtn.innerHTML = '<i class="bi bi-sun-fill"></i>';
     } else {
-        linckCss.setAttribute('href', 'css/style.css');
-        btnStyle.textContent = 'Modo Dia';
+        changeStyleBtn.innerHTML = '<i class="bi bi-moon-stars-fill"></i>';
     }
 });
+
+function sumaTotal() {
+    let total = 0;
+
+    // Recorremos todos los items del carrito
+    const precios = contCarrito.querySelectorAll("h6.text-success");
+
+    precios.forEach(precio => {
+        const valor = parseFloat(precio.textContent.replace("$", "").replace(/,/g, ""));
+        if (!isNaN(valor)) {
+            total += valor;
+        }
+    });
+
+    // Mostrar el total
+    const totalDiv = document.getElementById("total_suma");
+    totalDiv.textContent = "Total = $" + total.toLocaleString("es-CL");
+}

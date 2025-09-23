@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+
 /* los stylos */
 
 * {
@@ -19,6 +21,8 @@ body {
   padding: 25px;
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  align-self: flex-start;
+  height: 120vh;
 }
 
 #form h2 {
@@ -77,6 +81,7 @@ body {
   padding: 6px 15px;
 }
 
+/* De aqui enpieza los estilos propios */
 
 #change-style {
   position: fixed;
@@ -128,8 +133,8 @@ body.dark-mode .card:hover {
 }
 
 #Btn_Change{
-  position: absolute;
-  top: 10px;
+  position: fixed;
+  bottom: 10px;
   right: 10px;
   padding: 10px;
   background: #000000;
@@ -137,4 +142,109 @@ body.dark-mode .card:hover {
   color: #fff;
   cursor: pointer;
   border-radius: 15px;
+}
+
+.mb-3{
+  margin-bottom: 0;
+}
+
+/* Botón Carrito */
+#carrito {
+  position: absolute;
+  top: 16px;
+  right: 14px;
+  font-size: 22px;
+  border-radius: 50%;
+  padding: 7px 12px;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 8px var(--shadow);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover */
+#carrito:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px var(--shadow);
+}
+#carritos {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 22px;
+  border-radius: 50%;
+  padding: 8px 12px;
+  border: none;
+  background: red;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 8px var(--shadow);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover */
+#carritos:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px var(--shadow);
+}
+
+/* Panel lateral oculto */
+.panel {
+  position: fixed;
+  top: 0;
+  right: -400px; /* Escondido */
+  width: 400px;
+  height: 90%;
+  background: linear-gradient(135deg, #eaf9f69f, #339bf6);
+  color: #fff;
+  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.2);
+  transition: right 0.4s ease;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius:0 0 16px 16px;
+}
+
+.panel.active {
+  right: 0; /* Se muestra */
+}
+
+.panel h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+.panel .btn {
+  align-self: flex-end;
+  margin-top: 0;
+  margin-right: -10px;
+  border-radius: 20px;
+}
+
+.cont-carrito {
+  flex-grow: 1;
+  margin-top: 20px;
+  overflow-y: auto;
+}
+.cont-carritos {
+  flex-grow: 1;
+  margin-top: 20px;
+  overflow-y: auto;
+}
+
+/* Estilo modo oscuro */
+body.dark-mode .panel {
+  background: linear-gradient(135deg, #14201d9f, #c3bed1);
+  color: var(--text);
+}
+
+#total_suma{
+  color: white;
+  font-weight: 900;
 }

@@ -5,15 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!-- Estilos de css -->
-     <link id="link_style" rel="stylesheet" href="css/style.css">
+    <link id="link_style" rel="stylesheet" href="css/style.css">
 </head>
+
+
+<!-- boton para el carrito -->
+<button id="carrito"><i class="bi bi-cart3"></i></button>
+<div class="panel">
+    <h2>Carrito</h2>
+    <button id="carritos"><i class="bi bi-cart-x"></i></button>
+    <div class="cont-carrito">
+        
+    </div>
+
+    <div id="total_suma">Total =</div>
+</div>
 
 <body>
 
-    <button id="Btn_Change">Modo Noche</button>
+
+
+    <button id="Btn_Change"><i class="bi bi-brightness-high-fill"></i></button>
 
     <section class="container my-4">
         <div class="row">
@@ -24,37 +42,37 @@
                     <!-- Foto (URL) -->
                     <div class="mb-3">
                         <label for="foto" class="form-label">Foto (URL)</label>
-                        <input id="FotoCar" type="url" class="form-control"  placeholder="https://ejemplo.com/auto.jpg">
+                        <input id="FotoCar" type="url" class="form-control" placeholder="https://ejemplo.com/auto.jpg">
                     </div>
 
                     <!-- Nombre -->
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
-                        <input id="nombreCar" type="text" class="form-control"  placeholder="Ej: Corolla">
+                        <input id="nombreCar" type="text" class="form-control" placeholder="Ej: Corolla">
                     </div>
 
                     <!-- Marca -->
                     <div class="mb-3">
                         <label for="marca" class="form-label">Marca</label>
-                        <input id="marcaCar" type="text" class="form-control"  placeholder="Ej: Toyota">
+                        <input id="marcaCar" type="text" class="form-control" placeholder="Ej: Toyota">
                     </div>
 
                     <!-- Modelo -->
                     <div class="mb-3">
                         <label for="modelo" class="form-label">Modelo</label>
-                        <input id="modeloCar" type="text" class="form-control"  placeholder="Ej: 2021">
+                        <input id="modeloCar" type="text" class="form-control" placeholder="Ej: 2021">
                     </div>
 
                     <!-- Kilometraje -->
                     <div class="mb-3">
                         <label for="kilometraje" class="form-label">Kilometraje</label>
-                        <input id="kilometrajeCar" type="number" class="form-control"  placeholder="Ej: 35000">
+                        <input id="kilometrajeCar" type="number" class="form-control" placeholder="Ej: 35000">
                     </div>
 
                     <!-- Precio -->
                     <div class="mb-3">
                         <label for="precio" class="form-label">Precio ($)</label>
-                        <input id="precioCar" type="number" class="form-control"  placeholder="Ej: 50000000">
+                        <input id="precioCar" type="number" class="form-control" placeholder="Ej: 50000000">
                     </div>
 
                     <button id="add" type="submit" class="btn btn-primary">Agregar Vehículo</button>
@@ -92,7 +110,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
     <!-- script de js -->
-     <script src="js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
