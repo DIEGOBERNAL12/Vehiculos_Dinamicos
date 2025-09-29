@@ -212,12 +212,13 @@ body.dark-mode .card:hover {
   right: 0; /* Se muestra */
 }
 
-.panel h2 {
+.panel a {
   margin: 0;
   font-size: 1.4rem;
   font-weight: bold;
-  color: #fff;
+  color: #939090;
   text-align: center;
+  text-decoration: none;
 }
 
 .panel .btn {
