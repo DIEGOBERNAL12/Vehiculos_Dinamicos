@@ -1,4 +1,4 @@
-# Vehículos Dinámicos - Proyecto Web - [Visitar WebSite](index.html)
+## Vehículos Dinámicos - Proyecto Web - [Visitar WebSite](index.html)
 
 Este repositorio contiene un proyecto en **HTML, CSS y JavaScript** que permite gestionar
 un catálogo dinámico de vehículos. Aquí encontrarás un formulario para registrar autos y 
